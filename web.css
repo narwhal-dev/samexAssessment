@@ -1,0 +1,33 @@
+body{
+    padding: 50px;
+    font-family: 'Work Sans', sans-serif;
+    background-image: linear-gradient(to right, #E0CDBF , #AA9884);
+}
+
+h1{
+    text-indent: 5%;
+    font-size: 75px;
+    font-family: 'Libre Baskerville', serif;
+}
+
+.img-subject{
+    position: absolute;
+    left: 20%;
+    width: 700px;
+}
+
+.container{
+    margin: 0;
+    position: absolute;
+    width: 35%;
+    top: 25%;
+    right: 10%;
+    display: flex;
+    align-self: right;
+    opacity: 0.9;
+}
+
+.alert-container{
+    display: flex;
+    align-self: right;
+}
