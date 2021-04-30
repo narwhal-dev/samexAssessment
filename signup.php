@@ -1,4 +1,3 @@
-
 <?php
 // Create an instance of mysqli class to connect to the database with default setting (user 'root' with no password)
 $connection = new mysqli('localhost', 'root', '', 'web_signup');
@@ -11,6 +10,8 @@ $first_name = '';
 $last_name = '';
 $email = '';
 $phone_num = '';
+
+
 
 // Check if the request method is post
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -33,9 +34,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
     else{
         $check = $connection->query("SELECT * FROM signup_table where email='".$email."'");
-        if(mysqli_num_rows($check)){
+        if(mysqli_num_rows($check))
             $errors[] = 'Email already exists';
-        }
+        $check->close();
     }
 
     // If no sign of errors, insert data into the database table
@@ -45,6 +46,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $statement->bind_param("sssss", $id, $first_name, $last_name, $email, $phone_num);
         $statement->execute();
         $statement->close();
+
+        $sql = mysqli_query($connection, "SELECT * FROM signup_table");
+        $rows = [];
+        while($r = mysqli_fetch_assoc($sql)){
+            $rows[] = $r;
+        }
+        $fp = fopen('data.json', 'w');
+        fwrite($fp, json_encode($rows));
+        fclose($fp);
+        $sql->close();
+
         $connection->close();    
         echo '<span style="color:#313234;text-align:center;">Submitted successfully!</span>';
     }
